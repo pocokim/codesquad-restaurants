@@ -4,7 +4,7 @@ import Header from './Header/Header';
 import styled from 'styled-components';
 import Recommended from './Recommendation/Recommended';
 import FooterCont from './Footer/Footer';
-import RefreshBtn from './RestaurantList/RefreshBtn'
+import RefreshBtn from './RestaurantList/RefreshBtn';
 
 const Wrapper = styled.div`
     /* background-color: #EACD85; */
@@ -31,30 +31,10 @@ const App = () => {
   const [restaurantsInfo, setRestaurantsInfo] = useState([]);
   
   const getRestaurants = async () => {
-    const restaurantsJson = await fetch('../../public/json/localData.json').then(data => data.json());
+    const restaurantsJson = await fetch('http://192.168.1.4:3000/api-docs/').then(data => data.json());
     const allRestaurantsInfo = restaurantsJson.body;
     setRestaurantsInfo(allRestaurantsInfo);
   }
-
-  // const refreshHandler = (e) => {
-
-  // }
-
-  // const randomPick = (restaurantsInfo) => {
-  //   const tempArr = [...Array(9)];
-  //   const alreadyUsedId = [];
-  //   tempArr.map( (info, idx)=> {
-  //     let randomNum = createRandomNum({alreadyUsedId, idx, restaurantsInfo});
-  //     const randomNumId = restaurantsInfo[randomNum].id;
-  //     if(alreadyUsedId.includes(randomNumId)) 
-  //     alreadyUsedId.push(info.id)
-  //     return restaurantsInfo[randomNum];
-  //   })
-  // }
-  
-  // const createRandomNum = ({ idx, restaurantsInfo }) => {
-  //   return Math.floor(Math.random() * restaurantsInfo.length - idx);
-  // }
 
   useEffect(() => {
     getRestaurants();
