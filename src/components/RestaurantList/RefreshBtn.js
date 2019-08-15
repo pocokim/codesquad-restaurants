@@ -27,12 +27,6 @@ const Button = styled.button`
   }
 `
 
-const Span = styled.span`
-  background-image: url('../../../public/photo/refresh-arrow.png');
-  background-color: transparent;
-  background-repeat: no-repeat;
-`
-
 const RefreshBtn = ({ clickHandler }) => {
 
   return (

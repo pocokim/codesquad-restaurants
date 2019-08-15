@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import restauranstStore from '../../apis/restaurantsApi';
 import RefreshBtn from './RefreshBtn';
+import { throttle } from '../../lib/util';
 
 const Div = styled.div`
   display: flex;
@@ -88,20 +89,16 @@ const RestaurantList = () => {
   const [dataFlag, setDataFlag] = useState(true);
   
   const getRestaurants = async () => {
-    setDataFlag(false);
     const restaurantsJson = await restauranstStore.get('/stores?size=9');
     const randomRestaurants = restaurantsJson.data.stores;
     setRestaurantsInfo(randomRestaurants);
-    setDataFlag(true);
   }
 
-  const dataChecker = (dataFlag) => {
-    if(dataFlag) getRestaurants();
-  }
+  const throttledHandler = throttle(getRestaurants, 300);
 
-  const resetRestaruants = (e) => {
+  const resetRestaurants = (e) => {
     e.preventDefault();
-    dataChecker(dataFlag);
+    throttledHandler();
   }
   
   useEffect(() => {
@@ -130,7 +127,7 @@ const RestaurantList = () => {
 
   return (
     <RandomRestaurants>
-      <RefreshBtn clickHandler={resetRestaruants} />
+      <RefreshBtn clickHandler={resetRestaurants} />
       <Div>
         { restaurantsInfo ? total : '... loading'}
       </Div>
