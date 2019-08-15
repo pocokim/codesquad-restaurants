@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import restauranstStore from '../../apis/restaurantsApi';
 import RefreshBtn from './RefreshBtn';
 import { throttle } from '../../lib/util';
+import RestartantModal from "./RestartantModal";
 
 const Div = styled.div`
   display: flex;
@@ -106,23 +107,9 @@ const RestaurantList = () => {
     getRestaurants();
   }, []);
 
-  const total = restaurantsInfo.map( ({
-      name,
-      totalScore,
-      commentSize,
-      id
-    }) => {
+  const total = restaurantsInfo.map( (restaurantsInfo) => {
       return (
-        <Card key={id}>
-          <Overlapped>
-            <h1>{name}</h1>
-          </Overlapped>
-          <ContensContainer>
-            <H2>{name}</H2>
-            <P>평점: {(totalScore/commentSize).toFixed(1) + ' / 5 점'}</P>
-            <P>리뷰: {commentSize}개</P>
-          </ContensContainer>
-        </Card>
+        <RestartantModal restaurantsInfo={restaurantsInfo}/>
       )
   })
 
