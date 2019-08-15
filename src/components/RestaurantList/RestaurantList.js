@@ -93,6 +93,7 @@ const RestaurantList = () => {
   const getRestaurants = async () => {
     const restaurantsJson = await restauranstStore.get("/stores?size=9");
     const randomRestaurants = restaurantsJson.data.stores;
+    console.log("random",randomRestaurants);
     setRestaurantsInfo(randomRestaurants);
   }
 
@@ -109,7 +110,7 @@ const RestaurantList = () => {
 
   const total = restaurantsInfo.map( (restaurantsInfo) => {
       return (
-        <RestartantModal restaurantsInfo={restaurantsInfo}/>
+        <RestartantModal key={restaurantsInfo.id} restaurantsInfo={restaurantsInfo}/>
       )
   })
 

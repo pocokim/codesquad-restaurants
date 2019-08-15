@@ -1,0 +1,94 @@
+{
+  "store": {
+    "totalScore": 16.8,
+    "comments": [
+      {
+        "_id": "5d54cbc059c4ac84574af2c9",
+        "id": "4nc8apel24pijzc3ofdd",
+        "writerName": "살짝 부정이",
+        "content": "별로네요",
+        "score": "2.4",
+        "createdAt": "2019-08-15T03:04:32.209Z"
+      },
+      {
+        "_id": "5d54cbc059c4ac84574af2ca",
+        "id": "4nc8apel24pijzc3ofdh",
+        "writerName": "보통이",
+        "content": "먹을만해요",
+        "score": "3.2",
+        "createdAt": "2019-08-15T03:04:32.213Z"
+      },
+      {
+        "_id": "5d54cbc059c4ac84574af2cb",
+        "id": "4nc8apel24pijzc3ofdk",
+        "writerName": "살짝 긍정이",
+        "content": "맛있어요",
+        "score": "4",
+        "createdAt": "2019-08-15T03:04:32.217Z"
+      },
+      {
+        "_id": "5d54cbc059c4ac84574af2cc",
+        "id": "4nc8apel24pijzc3ofdn",
+        "writerName": "살짝 부정이",
+        "content": "별로네요",
+        "score": "2.4",
+        "createdAt": "2019-08-15T03:04:32.219Z"
+      },
+      {
+        "_id": "5d54cbc059c4ac84574af2cd",
+        "id": "4nc8apel24pijzc3ofdr",
+        "writerName": "살짝 부정이",
+        "content": "별로네요",
+        "score": "2.4",
+        "createdAt": "2019-08-15T03:04:32.223Z"
+      },
+      {
+        "_id": "5d54cbc059c4ac84574af2ce",
+        "id": "4nc8apel24pijzc3ofdv",
+        "writerName": "살짝 부정이",
+        "content": "별로네요",
+        "score": "2.4",
+        "createdAt": "2019-08-15T03:04:32.227Z"
+      }
+    ],
+    "commentSize": 6,
+    "menus": [
+      {
+        "_id": "5d54cbc459c4ac84574af324",
+        "id": "4nc8apel24pijzc3oiou",
+        "name": "돈코츠라멘",
+        "price": 8000,
+        "createdAt": "2019-08-15T03:04:36.510Z"
+      },
+      {
+        "_id": "5d54cbc459c4ac84574af325",
+        "id": "4nc8apel24pijzc3oiow",
+        "name": "순대국밥",
+        "price": 7000,
+        "createdAt": "2019-08-15T03:04:36.512Z"
+      },
+      {
+        "_id": "5d54cbc459c4ac84574af326",
+        "id": "4nc8apel24pijzc3oioz",
+        "name": "멍게 비빔밥",
+        "price": 7000,
+        "createdAt": "2019-08-15T03:04:36.515Z"
+      }
+    ],
+    "id": "4nc8apel24pijzc3obw6",
+    "name": "한솥도시락 우성아파트사거리점",
+    "tel": "02-3474-0370",
+    "address": "서울 강남구 역삼로 109 SK허브젠 103호",
+    "imageUrl": "",
+    "createdAt": "2019-08-15T03:04:27.700Z",
+    "modifiedAt": "2019-08-15T03:04:36.515Z"
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "/stores",
+      "action": "POST",
+      "types": ["application/json"]
+    }
+  ]
+}

@@ -49,7 +49,7 @@ const ModalModalExample = ({ restaurantsInfo: { id } }) => {
     getRestaurant();
   }, []);
 
-  console.log("restaurantInfo", restaurantInfo);
+  // console.log("restaurantInfo", restaurantInfo);
 
   return (
     <Modal
@@ -136,7 +136,7 @@ const ModalModalExample = ({ restaurantsInfo: { id } }) => {
               </Table.Body>
             </Table>
           </React.Fragment>
-          <CommentExampleComment />
+          <CommentExampleComment comments={restaurantInfo.comments} />
         </Modal.Description>
       </Modal.Content>
     </Modal>
