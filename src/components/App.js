@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import RestaurantList from './RestaurantList/RestaurantList';
 import Header from './Header/Header';
 import styled from 'styled-components';
@@ -28,27 +28,15 @@ const Todays = styled.p`
 
 const App = () => {
 
-  const [restaurantsInfo, setRestaurantsInfo] = useState([]);
-  
-  const getRestaurants = async () => {
-    const restaurantsJson = await fetch('http://192.168.1.4:3000/api-docs/').then(data => data.json());
-    const allRestaurantsInfo = restaurantsJson.body;
-    setRestaurantsInfo(allRestaurantsInfo);
-  }
-
-  useEffect(() => {
-    getRestaurants();
-  }, [])
-
   return (
     <Wrapper>
       <Header />
       <Todays>오늘의 베스트</Todays>
-      <Recommended restaurantsInfo={restaurantsInfo}/>
+      {/* <Recommended /> */}
       <Todays>오늘의 랜덤봇</Todays>
       <Div>
         {/* <RefreshBtn onClick={} /> */}
-        <RestaurantList restaurantsInfo={restaurantsInfo}/>
+        <RestaurantList />
       </Div>
       <FooterCont />
     </Wrapper>

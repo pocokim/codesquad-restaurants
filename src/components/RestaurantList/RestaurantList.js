@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
+import restauranstStore from '../../apis/restaurantsApi';
 
 const Div = styled.div`
   display: flex;
@@ -50,33 +51,42 @@ const Span = styled.span`
   padding-top: 3px;
 `
 
-const RestaurantList = ({ restaurantsInfo }) => {
+const RestaurantList = () => {
 
-  const total = restaurantsInfo.filter((_, idx) => {
-    return idx < 9;
-  }).map( ({
+  const [restaurantsInfo, setRestaurantsInfo] = useState([]);
+  
+  const getRestaurants = async () => {
+    const restaurantsJson = await restauranstStore.get('/stores?size=9');
+    const randomRestaurants = restaurantsJson.data.stores;
+    // const allRestaurantsInfo = restaurantsJson.body;
+    setRestaurantsInfo(randomRestaurants);
+  }
+  
+  useEffect(() => {
+    getRestaurants();
+  }, [])
+
+  const total = restaurantsInfo.map( ({
       name,
       ratings,
       tags,
-      min_price,
-      ID
+      id
     }) => {
       return (
-        <Card key={ID}>
+        <Card key={id}>
           <Overlapped>
             <h1>{name}</h1>
           </Overlapped>
           <h2>{name}</h2>
           <p>별점: {ratings}</p>
-          <p>가격: {min_price}</p>
-          {tags.map( tag => (<Span>{tag} </Span>) )}
+          {/* {tags.map( tag => (<Span>{tag} </Span>) )} */}
         </Card>
       )
   })
 
   return (
     <Div>
-      {total}
+      { restaurantsInfo ? total : '... loading'}
     </Div>
   )
 
