@@ -35,7 +35,7 @@ const RestaurantList = () => {
   }, []);
 
   const total = restaurantsInfo.map((restaurantsInfo) => {
-    return <RestartantModal restaurantsInfo={restaurantsInfo}  />;
+    return <RestartantModal key={restaurantsInfo.id} restaurantsInfo={restaurantsInfo}  />;
   });
   console.log("state에 넘겨받은 정보", restaurantsInfo);
 
