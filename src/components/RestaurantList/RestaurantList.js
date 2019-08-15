@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import restauranstStore from '../../apis/restaurantsApi';
@@ -86,10 +87,10 @@ const Span = styled.span`
 const RestaurantList = () => {
 
   const [restaurantsInfo, setRestaurantsInfo] = useState([]);
-  const [dataFlag, setDataFlag] = useState(true);
+  
   
   const getRestaurants = async () => {
-    const restaurantsJson = await restauranstStore.get('/stores?size=9');
+    const restaurantsJson = await restauranstStore.get("/stores?size=9");
     const randomRestaurants = restaurantsJson.data.stores;
     setRestaurantsInfo(randomRestaurants);
   }
@@ -103,7 +104,7 @@ const RestaurantList = () => {
   
   useEffect(() => {
     getRestaurants();
-  }, [])
+  }, []);
 
   const total = restaurantsInfo.map( ({
       name,
@@ -136,4 +137,4 @@ const RestaurantList = () => {
 
 }
 
-export default RestaurantList
+export default RestaurantList;
