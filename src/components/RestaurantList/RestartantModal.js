@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Header, Image, Modal, Table, Divider, Icon } from "semantic-ui-react";
+import CommentExampleComment from "./CommentExampleComment";
 import restauranstStore from "../../apis/restaurantsApi";
 
 import styled from "styled-components";
@@ -135,6 +136,7 @@ const ModalModalExample = ({ restaurantsInfo: { id } }) => {
               </Table.Body>
             </Table>
           </React.Fragment>
+          <CommentExampleComment />
         </Modal.Description>
       </Modal.Content>
     </Modal>
