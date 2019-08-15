@@ -1,5 +1,7 @@
-import React from "react";
-import { Header, Image, Modal } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { Header, Image, Modal, Table, Divider, Icon } from "semantic-ui-react";
+import restauranstStore from "../../apis/restaurantsApi";
+
 import styled from "styled-components";
 
 const Card = styled.div`
@@ -10,7 +12,7 @@ const Card = styled.div`
   border-radius: 20px;
   box-shadow: 0 2px 3px black, 0 2px 10px black;
   margin-bottom: 30px;
-`
+`;
 
 const Overlapped = styled.div`
   display: flex;
@@ -29,39 +31,114 @@ const Overlapped = styled.div`
   background-color: black;
   &:hover {
     opacity: 0;
-    transition: opacity .5s ease-out;
+    transition: opacity 0.5s ease-out;
   }
-`
+`;
 
+const ModalModalExample = ({ restaurantsInfo: { id } }) => {
+  const [restaurantInfo, setRestaurantInfo] = useState({});
 
-const ModalModalExample = ({restaurantsInfo}) => {
-  console.log("모달이 넘겨받은 정보",restaurantsInfo);
-  return(
+  const getRestaurant = async () => {
+    const restaurantJson = await restauranstStore.get(`/stores/${id}`);
+    const restaurantData = restaurantJson.data.store;
+    setRestaurantInfo(restaurantData);
+  };
+
+  useEffect(() => {
+    getRestaurant();
+  }, []);
+
+  console.log("restaurantInfo", restaurantInfo);
+
+  return (
     <Modal
-    trigger={
-      <Card key={restaurantsInfo.id}>
-        <Overlapped>
-          <h1>{restaurantsInfo.name}</h1>
-        </Overlapped>
-        <h2>{restaurantsInfo.name}</h2>
-        <p>별점: {restaurantsInfo.ratings}</p>
-      </Card>
-    }
-  >
-    <Modal.Header>{restaurantsInfo.name}</Modal.Header>
-    <Modal.Content image>
-      <Image wrapped size="medium" src="/images/avatar/large/rachel.png" />
-      <Modal.Description>
-        <Header>Default Profile Image</Header>
-        <p>
-          We've found the following gravatar image associated with your e-mail
-          address.
-        </p>
-        <p>Is it okay to use this photo?</p>
-      </Modal.Description>
-    </Modal.Content>
-  </Modal>
+      trigger={
+        <Card key={restaurantInfo.id}>
+          <Overlapped>
+            <h1>{restaurantInfo.name}</h1>
+          </Overlapped>
+          <h2>{restaurantInfo.name}</h2>
+          <p>
+            별점:
+            {(restaurantInfo.totalScore / restaurantInfo.commentSize).toFixed(
+              1
+            )}
+          </p>
+        </Card>
+      }
+    >
+      <Modal.Header>{restaurantInfo.name}</Modal.Header>
+      <Modal.Content image>
+        <Image
+          wrapped
+          size="medium"
+          src={
+            restaurantInfo.imageUrl
+              ? "http://192.168.1.4:3000/" + restaurantInfo.imageUrl
+              : "public/photo/codesquad.png"
+          }
+        />
+        <Modal.Description>
+          <React.Fragment>
+            <Divider horizontal>
+              <Header as="h4">
+                {/* <Icon name="tag" /> */}
+                Description
+              </Header>
+            </Divider>
+            <p>{restaurantInfo.description}</p>
+
+            <Divider horizontal>
+              <Header as="h4">
+                {/* <Icon name="bar chart" /> */}
+                Specifications
+              </Header>
+            </Divider>
+
+            <Table definition>
+              <Table.Body>
+                <Table.Row>
+                  <Table.Cell>메뉴</Table.Cell>
+                  <Table.Cell>
+                    {restaurantInfo.menus &&
+                      restaurantInfo.menus.map(menu => menu.name + ",")}
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>가격</Table.Cell>
+                  <Table.Cell>
+                    {restaurantInfo.menus &&
+                      `${(
+                        restaurantInfo.menus.reduce((accum, cur) => {
+                          accum += cur.price;
+                          return accum;
+                        }, 0) / restaurantInfo.menus.length
+                      ).toFixed(0)}원대`}
+                  </Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell width={4}>전화번호</Table.Cell>
+                  <Table.Cell>{restaurantInfo.tel}</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>주소</Table.Cell>
+                  <Table.Cell>{restaurantInfo.address}</Table.Cell>
+                </Table.Row>
+                <Table.Row>
+                  <Table.Cell>별점</Table.Cell>
+                  <Table.Cell>
+                    {(
+                      restaurantInfo.totalScore / restaurantInfo.commentSize
+                    ).toFixed(1)}
+                  </Table.Cell>
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </React.Fragment>
+        </Modal.Description>
+      </Modal.Content>
+    </Modal>
   );
-}
+};
 
 export default ModalModalExample;
