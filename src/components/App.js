@@ -4,7 +4,6 @@ import Header from './Header/Header';
 import styled from 'styled-components';
 import Recommended from './Recommendation/Recommended';
 import FooterCont from './Footer/Footer';
-import RefreshBtn from './RestaurantList/RefreshBtn';
 
 const Wrapper = styled.div`
     /* background-color: #EACD85; */
@@ -32,10 +31,9 @@ const App = () => {
     <Wrapper>
       <Header />
       <Todays>오늘의 베스트</Todays>
-      {/* <Recommended /> */}
+      <Recommended />
       <Todays>오늘의 랜덤봇</Todays>
       <Div>
-        {/* <RefreshBtn onClick={} /> */}
         <RestaurantList />
       </Div>
       <FooterCont />

@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import restauranstStore from '../../apis/restaurantsApi';
 
 const RecommendContainer = styled.ul`
   display: flex;
   justify-content: space-evenly;
   list-style-type: none;
+  margin: 0 auto;
   padding: 0;
+  width: 90%;
+`
+
+const H2 = styled.h2`
+  margin-bottom: 20px;
+`
+
+const P = styled.p`
+  margin: 0;
+  font-weight: bold;
 `
 
 const Card = styled.li`
@@ -34,23 +46,35 @@ const Span = styled.span`
   font-weight: bold;
 `
 
-const Recommended = ({ restaurantsInfo }) => {
+const Recommended = () => {
 
-  const recommendation = restaurantsInfo.filter( ( _, idx) => {
-    return idx < 3;
-  }).map( ({
+  const [restaurantsInfo, setRestaurantsInfo] = useState([]);
+  
+  const getRestaurants = async () => {
+    const restaurantsJson = await restauranstStore.get('/stores/recommand');
+    const randomRestaurants = restaurantsJson.data.stores;
+    setRestaurantsInfo(randomRestaurants);
+  }
+  
+  useEffect(() => {
+    getRestaurants();
+  }, [])
+
+  const recommendation = restaurantsInfo.map( ({
     name,
-    ratings,
-    tags,
-    min_price,
-    ID
+    totalScore,
+    commentSize,
+    address,
+    tel,
+    id
   }) => {
     return (
-      <Card key={ID}>
-        <h2>{name}</h2>
-        <p>별점: {ratings}</p>
-        <p>가격: {min_price}</p>
-        {tags.map( tag => (<Span>{tag} </Span>) )}
+      <Card key={id}>
+        <H2>{name}</H2>
+        <P>주소: {address}</P>
+        <P>Tel: {tel}</P>
+        <P>평점: {(totalScore/commentSize).toFixed(1) + ' / 5 점'}</P>
+        {/* {tags.map( tag => (<Span>{tag} </Span>) )} */}
       </Card>
     )
   })

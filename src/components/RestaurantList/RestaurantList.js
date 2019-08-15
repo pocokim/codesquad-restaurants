@@ -1,21 +1,48 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
 import restauranstStore from '../../apis/restaurantsApi';
+import RefreshBtn from './RefreshBtn';
 
 const Div = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  width: 90%;
+`
+
+const H2 = styled.h2`
+  margin-top: 0;
+  height: 60px;
+`
+
+const P = styled.p`
+  margin: 0;
+  font-weight: bold;
+`
+
+const RandomRestaurants = styled.div`
+  position: relative;
+  padding-top: 40px;
 `
 
 const Card = styled.div`
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   padding: 40px;
   background: #fff;
   width: 280px;
+  height: 200px;
   border-radius: 20px;
   box-shadow: 0 2px 3px black, 0 2px 10px black;
   margin-bottom: 30px;
+`
+
+const ContensContainer = styled.div`
+  width: 90%;
+  height: 80%;
 `
 
 const Overlapped = styled.div`
@@ -33,6 +60,10 @@ const Overlapped = styled.div`
   color: #ffffff;
   opacity: 1;
   background-color: black;
+  & h1 {
+    text-align: center;
+    word-break: keep-all; 
+  }
 
   &:hover {
     opacity: 0;
@@ -54,12 +85,23 @@ const Span = styled.span`
 const RestaurantList = () => {
 
   const [restaurantsInfo, setRestaurantsInfo] = useState([]);
+  const [dataFlag, setDataFlag] = useState(true);
   
   const getRestaurants = async () => {
+    setDataFlag(false);
     const restaurantsJson = await restauranstStore.get('/stores?size=9');
     const randomRestaurants = restaurantsJson.data.stores;
-    // const allRestaurantsInfo = restaurantsJson.body;
     setRestaurantsInfo(randomRestaurants);
+    setDataFlag(true);
+  }
+
+  const dataChecker = (dataFlag) => {
+    if(dataFlag) getRestaurants();
+  }
+
+  const resetRestaruants = (e) => {
+    e.preventDefault();
+    dataChecker(dataFlag);
   }
   
   useEffect(() => {
@@ -68,8 +110,8 @@ const RestaurantList = () => {
 
   const total = restaurantsInfo.map( ({
       name,
-      ratings,
-      tags,
+      totalScore,
+      commentSize,
       id
     }) => {
       return (
@@ -77,19 +119,24 @@ const RestaurantList = () => {
           <Overlapped>
             <h1>{name}</h1>
           </Overlapped>
-          <h2>{name}</h2>
-          <p>별점: {ratings}</p>
-          {/* {tags.map( tag => (<Span>{tag} </Span>) )} */}
+          <ContensContainer>
+            <H2>{name}</H2>
+            <P>평점: {(totalScore/commentSize).toFixed(1) + ' / 5 점'}</P>
+            <P>리뷰: {commentSize}개</P>
+          </ContensContainer>
         </Card>
       )
   })
 
   return (
-    <Div>
-      { restaurantsInfo ? total : '... loading'}
-    </Div>
+    <RandomRestaurants>
+      <RefreshBtn clickHandler={resetRestaruants} />
+      <Div>
+        { restaurantsInfo ? total : '... loading'}
+      </Div>
+    </RandomRestaurants>
   )
 
-  }
+}
 
 export default RestaurantList

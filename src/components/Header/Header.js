@@ -12,7 +12,7 @@ const Div = styled.div`
 `
 
 const Img = styled.img`
-  background-image: url('../../../public/photo/codesquad.png');
+  background-image: url('${process.env.PUBLIC_URL}/photo/codesquad.png');
   background-size: 170px;
   background-repeat: no-repeat;
   width: 130px;
