@@ -14,7 +14,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.21",
     "@fortawesome/free-solid-svg-icons": "^5.10.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "semantic-ui-react": "^0.87.3",
